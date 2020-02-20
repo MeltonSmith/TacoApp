@@ -46,9 +46,15 @@ public class DesignTacosController {
         List<Ingredient> ingredients = new ArrayList<>();
         ingredientRepo.findAll().forEach(ingredients::add);
 
-        Type[] types = Type.values();
-        for (Type type : types) {
-            model.addAttribute(type.toString().toLowerCase(),
+
+        List<String> strings = new ArrayList<>();
+
+        ingredients.forEach(ingredient -> {
+            strings.add(ingredient.getType());
+        });
+
+        for (String type : strings) {
+            model.addAttribute(type.toLowerCase(),
                     filterByType(ingredients, type));
         }
 
@@ -70,7 +76,7 @@ public class DesignTacosController {
         return "redirect:/orders/current";
     }
 
-    private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type){
+    private List<Ingredient> filterByType(List<Ingredient> ingredients, String type){
         return ingredients
                 .stream()
                 .filter(ingredient -> ingredient.getType().equals(type))
