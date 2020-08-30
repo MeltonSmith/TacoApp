@@ -8,6 +8,6 @@ import tacos.User;
  * Since: 20/02/2020
  */
 public interface UserRepository extends CrudRepository<User, Long> {
-    public User findByUserName(String username);
+    User findByUserName(String username);
 }
 
